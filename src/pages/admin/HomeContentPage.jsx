@@ -33,8 +33,8 @@ function HomeContentPage() {
         setValues({
           ...defaultValues,
           ...(response || {}),
-          whyChooseUs: normaliseArray(response?.whyChooseUs || response?.whyChooseUsCards).map((item, index) => ({ ...createListItem({ order: index + 1 }), ...item })),
-          trainingHighlights: normaliseArray(response?.trainingHighlights || response?.highlights).map((item, index) => ({ ...createListItem({ order: index + 1 }), ...item })),
+          whyChooseUs: normaliseArray(response?.whyChooseUs).map((item, index) => ({ ...createListItem({ order: index + 1 }), ...item })),
+          trainingHighlights: normaliseArray(response?.trainingHighlights).map((item, index) => ({ ...createListItem({ order: index + 1 }), ...item })),
         })
       } finally {
         setLoading(false)

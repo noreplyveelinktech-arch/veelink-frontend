@@ -14,7 +14,7 @@ const statuses = [
   { label: 'Inactive', value: 'INACTIVE' },
 ]
 
-function AdminCourseForm({ initialValues, onSubmit, saving }) {
+function AdminCourseForm({ initialValues, categories = [], onSubmit, saving }) {
   const [formData, setFormData] = useState(initialValues)
 
   useEffect(() => {
@@ -25,6 +25,11 @@ function AdminCourseForm({ initialValues, onSubmit, saving }) {
     const { name, value } = event.target
     setFormData((current) => ({ ...current, [name]: value }))
   }
+
+  const categoryOptions = [
+    { label: 'Select Category', value: '' },
+    ...categories.map((category) => ({ label: category.categoryName, value: String(category.id) })),
+  ]
 
   return (
     <form
@@ -40,7 +45,14 @@ function AdminCourseForm({ initialValues, onSubmit, saving }) {
     >
       <FormField label="Course Name" name="name" value={formData.name} onChange={handleChange} required />
       <FormField label="Department" name="department" value={formData.department} onChange={handleChange} />
-      <FormField label="Category" name="category" value={formData.category} onChange={handleChange} />
+      <FormField
+        label="Category"
+        name="categoryId"
+        as="select"
+        value={formData.categoryId ? String(formData.categoryId) : ''}
+        onChange={handleChange}
+        options={categoryOptions}
+      />
       <ImageUrlField label="Image URL" name="imageUrl" value={formData.imageUrl} onChange={handleChange} />
       <div className="md:col-span-2">
         <FormField label="Description" name="description" as="textarea" rows={6} value={formData.description} onChange={handleChange} />

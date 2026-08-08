@@ -16,7 +16,7 @@ const defaultMember = {
   photoUrl: '',
   linkedinUrl: '',
   displayOrder: 0,
-  active: true,
+  isActive: true,
 }
 
 function TeamPage() {
@@ -56,7 +56,7 @@ function TeamPage() {
     event.preventDefault()
     setSaving(true)
     try {
-      const payload = { ...memberForm, displayOrder: Number(memberForm.displayOrder || 0), active: String(memberForm.active) === 'true' || memberForm.active === true }
+      const payload = { ...memberForm, displayOrder: Number(memberForm.displayOrder || 0), isActive: String(memberForm.isActive) === 'true' || memberForm.isActive === true }
       if (editingId) {
         await adminTeamApi.updateMember(editingId, payload)
       } else {
@@ -138,10 +138,10 @@ function TeamPage() {
           <FormField label="Display Order" name="displayOrder" type="number" value={memberForm.displayOrder} onChange={(event) => setMemberForm((current) => ({ ...current, displayOrder: event.target.value }))} />
           <FormField
             label="Active"
-            name="active"
+            name="isActive"
             as="select"
-            value={String(memberForm.active)}
-            onChange={(event) => setMemberForm((current) => ({ ...current, active: event.target.value }))}
+            value={String(memberForm.isActive)}
+            onChange={(event) => setMemberForm((current) => ({ ...current, isActive: event.target.value }))}
             options={[
               { label: 'Active', value: 'true' },
               { label: 'Inactive', value: 'false' },

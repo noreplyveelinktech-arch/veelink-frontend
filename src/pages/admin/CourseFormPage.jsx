@@ -10,7 +10,7 @@ import { usePageMeta } from '../../utils/pageMeta'
 const defaultValues = {
   name: '',
   department: '',
-  category: '',
+  categoryId: '',
   imageUrl: '',
   description: '',
   duration: '',
@@ -26,8 +26,13 @@ function CourseFormPage({ mode }) {
   const { id } = useParams()
   const { success, error } = useToast()
   const [values, setValues] = useState(defaultValues)
+  const [categories, setCategories] = useState([])
   const [loading, setLoading] = useState(mode === 'edit')
   const [saving, setSaving] = useState(false)
+
+  useEffect(() => {
+    adminCourseApi.getCategories().then(setCategories).catch(() => setCategories([]))
+  }, [])
 
   useEffect(() => {
     if (mode !== 'edit' || !id) return
@@ -69,7 +74,7 @@ function CourseFormPage({ mode }) {
         <h1 className="text-3xl font-black text-slate-950">{mode === 'edit' ? 'Edit Course' : 'Add Course'}</h1>
         <p className="mt-2 text-slate-500">Create detailed training offerings with mode, fee, and status.</p>
       </div>
-      <AdminCourseForm initialValues={values} onSubmit={handleSubmit} saving={saving} />
+      <AdminCourseForm initialValues={values} categories={categories} onSubmit={handleSubmit} saving={saving} />
     </div>
   )
 }

@@ -14,7 +14,7 @@ const defaultUser = {
   email: '',
   password: '',
   role: 'ADMIN',
-  active: true,
+  isActive: true,
 }
 
 function UsersPage() {
@@ -56,7 +56,7 @@ function UsersPage() {
     try {
       const payload = {
         ...userForm,
-        active: String(userForm.active) === 'true' || userForm.active === true,
+        isActive: String(userForm.isActive) === 'true' || userForm.isActive === true,
       }
 
       if (editingId) {
@@ -108,7 +108,7 @@ function UsersPage() {
                   <h3 className="text-lg font-semibold text-slate-950">{user.name}</h3>
                   <p className="text-sm text-slate-600">{user.email}</p>
                   <div className="mt-3 flex items-center gap-3">
-                    <StatusBadge value={user.active ? 'ACTIVE' : 'INACTIVE'} />
+                    <StatusBadge value={user.isActive ? 'ACTIVE' : 'INACTIVE'} />
                     <span className="text-xs font-semibold uppercase tracking-[0.16em] text-brand-600">{user.role || 'ADMIN'}</span>
                   </div>
                 </div>
@@ -165,10 +165,10 @@ function UsersPage() {
           />
           <FormField
             label="Active"
-            name="active"
+            name="isActive"
             as="select"
-            value={String(userForm.active)}
-            onChange={(event) => setUserForm((current) => ({ ...current, active: event.target.value }))}
+            value={String(userForm.isActive)}
+            onChange={(event) => setUserForm((current) => ({ ...current, isActive: event.target.value }))}
             options={[
               { label: 'Active', value: 'true' },
               { label: 'Inactive', value: 'false' },

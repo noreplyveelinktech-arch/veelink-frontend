@@ -18,7 +18,7 @@ function AboutPage() {
       try {
         const [aboutResponse, teamResponse] = await Promise.all([aboutApi.getContent(), teamApi.getMembers()])
         setContent(aboutResponse || {})
-        setTeam(sortByDisplayOrder(normaliseArray(teamResponse).filter((member) => member.active !== false)))
+        setTeam(sortByDisplayOrder(normaliseArray(teamResponse).filter((member) => member.isActive !== false)))
       } finally {
         setLoading(false)
       }
